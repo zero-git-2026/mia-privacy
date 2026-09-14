@@ -110,7 +110,7 @@
   <p>与采集入库相同，您需确保对候选人信息的处理具备合法依据（如招聘业务目的）。若您不希望简历内容被用于模型分析，请不要点击该按钮，并在扩展面板中确认「进入详情页自动评分」开关处于关闭状态。</p>
 
   <h3>8.6 插件调用的 API 端点说明</h3>
-  <p>扩展仅会向 <code>https://mia-assistant.xyz/api/v1</code> 发出以下 14 类 HTTPS 请求，全部通过 TLS 1.2+ 加密传输：</p>
+  <p>扩展仅会向 <code>https://mia-assistant.xyz/api/v1</code> 发出以下 15 类 HTTPS 请求，全部通过 TLS 1.2+ 加密传输：</p>
   <ul>
     <li><code>POST /auth/plugin-refresh</code> — 自动刷新 access_token（复用网站登录态）</li>
     <li><code>GET /auth/me</code> — 校验当前登录状态</li>
@@ -126,6 +126,7 @@
     <li><code>POST /ai/assistant</code> — AI 匹配度评估（<strong>仅您点击按钮，或您在专业版下自行开启自动评估时</strong>调用，见 §8.5）</li>
     <li><code>GET /plugin/entitlements</code> — 查询您的订阅档位、插件使用权状态与剩余积分（用于在扩展面板上显示）</li>
     <li><code>POST /plugin/invite/redeem</code> — 兑换邀请码以开通插件使用权（<strong>仅您主动输入邀请码并点击「兑换开通」时</strong>调用；仅提交您填写的邀请码，不涉及简历数据）</li>
+    <li><code>POST /billing/credits/redeem-by-invite</code> — 兑换积分包邀请码以加购积分（<strong>仅您主动输入邀请码并点击兑换时</strong>调用；不涉及简历数据）</li>
   </ul>
   <p>所有业务请求均携带您的 access_token，后端会进行账户级隔离，确保 A 用户无法通过扩展读取或写入 B 用户的人才库数据。</p>
 
