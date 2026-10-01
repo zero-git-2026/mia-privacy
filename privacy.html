@@ -32,7 +32,7 @@
 <body>
 <div class="wrap">
   <h1>隐私政策</h1>
-  <p class="meta">最后更新日期：<strong>2026年9月14日</strong>（政策版本 v1.9）<br />
+  <p class="meta">最后更新日期：<strong>2026年10月1日</strong>（政策版本 v1.10）<br />
   本页为官方隐私政策发布页 · 适用范围：MIA 猎头智能助手网站（mia-assistant.xyz）与 MIA 浏览器助手浏览器扩展</p>
 
   <h2>1. 信息收集</h2>
@@ -58,7 +58,7 @@
   <p>（a）获得您的明确同意；</p>
   <p>（b）法律法规要求；</p>
   <p>（c）保护我们的合法权益；</p>
-  <p>（d）与为我们提供服务的可信第三方合作（如云服务提供商、大模型服务商）。</p>
+  <p>（d）与为我们提供服务的可信第三方合作，按类别包括<strong>云服务提供商</strong>、<strong>大模型服务商</strong>与<strong>文件解析服务商</strong>；我们仅向其传输完成该服务所必需的<strong>最小必要信息</strong>。</p>
 
   <h2>4. 数据安全</h2>
   <p>我们采用行业标准的安全措施保护您的数据，包括但不限于：TLS 加密传输、数据库加密存储、访问控制机制等。但请注意，没有任何互联网传输或电子存储方法是完全安全的。</p>
@@ -79,7 +79,7 @@
   <p>我们使用 Cookie 和类似技术来维持登录状态、记录偏好和分析使用趋势。您可以控制浏览器 Cookie 设置，但禁用 Cookie 可能影响部分功能正常使用。</p>
 
   <h2>8. 浏览器扩展（MIA 浏览器助手）专项说明</h2>
-  <p>当您在 Chrome、Edge 等 Chromium 浏览器中安装并使用 <strong>MIA 浏览器助手</strong>扩展程序时，本扩展可能访问以下信息以实现"在招聘平台候选人详情页一键采集简历到 MIA 人才库"之功能。所有采集行为均须您显式触发，扩展不会在后台自动读取任何页面内容。</p>
+  <p>当您在 Chrome、Edge 等 Chromium 浏览器中安装并使用 <strong>MIA 浏览器助手</strong>扩展程序时，本扩展可能访问以下信息以实现"在招聘平台候选人详情页一键采集简历到 MIA 人才库"之功能。所有采集行为均须您显式触发；除您在专业版下自行开启「进入详情页自动评分」（详见 §8.5(2)）外，扩展不会在后台自动读取页面内容。</p>
 
   <h3>8.1 读取的页面信息（仅在您主动触发时）</h3>
   <p>扩展仅在您主动点击页面浮标「收录至 MIA 人才库」后，读取当前招聘平台（首版仅猎聘）候选人详情页中对该候选人<strong>公开可见</strong>的信息，包括但不限于：姓名、性别、年龄、最高学历、当前职位、当前公司、期望薪资、工作年限、项目经历、教育经历、简历编号、最后登录时间、候选人页面 URL，以及<strong>该页面上公开展示的联系方式（如手机号、电子邮箱，含平台"简历备注"板块中展示的联系方式）</strong>。</p>
@@ -110,10 +110,11 @@
   <p>与采集入库相同，您需确保对候选人信息的处理具备合法依据（如招聘业务目的）。若您不希望简历内容被用于模型分析，请不要点击该按钮，并在扩展面板中确认「进入详情页自动评分」开关处于关闭状态。</p>
 
   <h3>8.6 插件调用的 API 端点说明</h3>
-  <p>扩展仅会向 <code>https://mia-assistant.xyz/api/v1</code> 发出以下 15 类 HTTPS 请求，全部通过 TLS 1.2+ 加密传输：</p>
+  <p>扩展仅会向 <code>https://mia-assistant.xyz/api/v1</code> 发出以下 16 类 HTTPS 请求，全部通过 TLS 1.2+ 加密传输：</p>
   <ul>
     <li><code>POST /auth/plugin-refresh</code> — 自动刷新 access_token（复用网站登录态）</li>
     <li><code>GET /auth/me</code> — 校验当前登录状态</li>
+    <li><code>POST /auth/logout</code> — 退出登录：撤销登录态并清理本地凭证</li>
     <li><code>GET /ext-config</code> — 拉取最新的招聘平台 DOM 选择器（静默）</li>
     <li><code>POST /ext-config/telemetry</code> — 上报零个人信息遥测（见 §8.4）</li>
     <li><code>POST /candidates/precheck-duplicates</code> — 入库前模糊查重</li>
@@ -124,9 +125,9 @@
     <li><code>POST /mapping/projects/:id/nodes</code> — 入库成功后自动在图谱建立 person 节点</li>
     <li><code>GET /jobs</code> — 拉取您的职位列表（供选择「按哪个职位评估」，以及导入时绑定职位）</li>
     <li><code>POST /ai/assistant</code> — AI 匹配度评估（<strong>仅您点击按钮，或您在专业版下自行开启自动评估时</strong>调用，见 §8.5）</li>
+    <li><code>POST /match/card-rank</code> — 列表页卡片优先排序（仅按已选职位对您可见的卡片本地排序，<strong>只排序不评分、不产生额外上传</strong>）</li>
     <li><code>GET /plugin/entitlements</code> — 查询您的订阅档位、插件使用权状态与剩余积分（用于在扩展面板上显示）</li>
     <li><code>POST /plugin/invite/redeem</code> — 兑换邀请码以开通插件使用权（<strong>仅您主动输入邀请码并点击「兑换开通」时</strong>调用；仅提交您填写的邀请码，不涉及简历数据）</li>
-    <li><code>POST /billing/credits/redeem-by-invite</code> — 兑换积分包邀请码以加购积分（<strong>仅您主动输入邀请码并点击兑换时</strong>调用；不涉及简历数据）</li>
   </ul>
   <p>所有业务请求均携带您的 access_token，后端会进行账户级隔离，确保 A 用户无法通过扩展读取或写入 B 用户的人才库数据。</p>
 
@@ -154,7 +155,7 @@
   <p>如对本隐私政策有任何疑问，请通过以下方式联系我们：<br />邮箱：support@mia-assistant.xyz</p>
 
   <footer>
-    本页与 <a href="https://mia-assistant.xyz/legal/privacy">mia-assistant.xyz/legal/privacy</a> 内容保持同步（v1.9，2026-09-14）。
+    本页与 <a href="https://mia-assistant.xyz/legal/privacy">mia-assistant.xyz/legal/privacy</a> 内容保持同步（v1.10，2026-10-01）。
     <br />© 2026 MIA 猎头智能助手
   </footer>
 </div>
